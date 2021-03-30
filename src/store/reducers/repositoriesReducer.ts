@@ -1,12 +1,18 @@
+import { Action } from "../actions";
+import { ActionType } from "../action-types";
+
 interface RepositoriesState {
   loading: boolean;
   error: string | null;
   data: string[];
 }
 
-const reducer = (state: RepositoriesState, action: any) => {
+const repositoriesReducer = (
+  state: RepositoriesState,
+  action: Action
+): RepositoriesState => {
   switch (action.type) {
-    case "SEATCH_REQUEST":
+    case ActionType.SEARCH_REQUEST:
       return {
         ...state,
         loading: true,
@@ -14,7 +20,7 @@ const reducer = (state: RepositoriesState, action: any) => {
         data: [],
       };
 
-    case "SEATCH_SUCCESS":
+    case ActionType.SEARCH_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -22,9 +28,17 @@ const reducer = (state: RepositoriesState, action: any) => {
         data: action.payload,
       };
 
+    case ActionType.SEARCH_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        data: [],
+      };
+
     default:
       return state;
   }
 };
 
-export default reducer;
+export default repositoriesReducer;
