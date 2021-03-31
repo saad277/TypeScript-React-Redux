@@ -3,7 +3,9 @@ import { Dispatch } from "redux";
 import { ActionType } from "../action-types";
 import { Action } from "../actions";
 
-export const search = (searchText: string) => async (dispatch: any) => {
+export const search = (searchText: string) => async (
+  dispatch: Dispatch<Action>
+) => {
   dispatch({
     type: ActionType.SEARCH_REQUEST,
   });
@@ -29,6 +31,7 @@ export const search = (searchText: string) => async (dispatch: any) => {
   } catch (err) {
     dispatch({
       type: ActionType.SEARCH_ERROR,
+      payload: err,
     });
   }
 };
