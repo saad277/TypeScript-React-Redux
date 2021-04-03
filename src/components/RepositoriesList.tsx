@@ -1,10 +1,23 @@
 import { useState } from "react";
+import { connect } from "react-redux";
+import { search } from "../store";
 
-const RepositoriesList: React.FC = () => {
+interface RepositoryListProps {
+  search: Function;
+  list: [];
+}
+
+const RepositoriesList: React.FC<RepositoryListProps> = (props) => {
+  const { search, list } = props;
+
+  console.log(list);
+
   const [searchText, setSearchText] = useState("");
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    search(searchText);
   };
 
   return (
@@ -20,4 +33,14 @@ const RepositoriesList: React.FC = () => {
   );
 };
 
-export default RepositoriesList;
+const mapDispatchToProps = {
+  search,
+};
+
+const mapStateToProps = (state: any) => {
+  return {
+    list: state.repositories.data,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RepositoriesList);

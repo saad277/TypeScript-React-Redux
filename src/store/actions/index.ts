@@ -6,12 +6,12 @@ interface SearchRequest {
 
 interface SearchSuccess {
   type: ActionType.SEARCH_SUCCESS;
-  payload: string[];
+  payload: any;
 }
 
 interface SearchError {
   type: ActionType.SEARCH_ERROR;
-  payload: string;
+  payload: any;
 }
 
 export type Action = SearchRequest | SearchSuccess | SearchError;

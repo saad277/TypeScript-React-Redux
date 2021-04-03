@@ -11,8 +11,8 @@ export const search = (searchText: string) => async (
   });
 
   try {
-    const { data } = await axios.get(
-      "https://registry.npm.js.org/-/v1/search",
+    const res = await axios.get(
+      "https://jsonplaceholder.typicode.com/todos/1",
       {
         params: {
           text: searchText,
@@ -20,13 +20,9 @@ export const search = (searchText: string) => async (
       }
     );
 
-    const names = data.objects.map((result: any) => {
-      return result.package.name;
-    });
-
     dispatch({
       type: ActionType.SEARCH_SUCCESS,
-      payload: names,
+      payload: res,
     });
   } catch (err) {
     dispatch({
